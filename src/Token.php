@@ -23,15 +23,16 @@ class Token
      * @param string $col
      * @param integer $size
      * @param bool $withSpecialCharacters
+     * @param null $connection
      * @return string
      * @throws \Exception
      */
-    public function unique($table, $col, $size, $withSpecialCharacters = false)
+    public function unique($table, $col, $size, $withSpecialCharacters = false, $connection = null)
     {
         do {
             $token = $this->random($size, $withSpecialCharacters);
 
-            $exists = DB::table($table)->where($col, $token)->exists();
+            $exists = DB::connection($connection)->table($table)->where($col, $token)->exists();
         } while ($exists);
 
         return $token;
@@ -44,15 +45,16 @@ class Token
      * @param string $column
      * @param $size
      * @param bool $withSpecialCharacters
+     * @param null $connection
      * @return integer
      * @throws \Exception
      */
-    public function uniqueNumber($table, $column, $size, $withSpecialCharacters = false)
+    public function uniqueNumber($table, $column, $size, $withSpecialCharacters = false, $connection = null)
     {
         do {
             $token = $this->randomNumber($size, $withSpecialCharacters);
 
-            $exists = DB::table($table)->where($column, $token)->exists();
+            $exists = DB::connection($connection)->table($table)->where($column, $token)->exists();
         } while ($exists);
 
         return $token;
@@ -65,15 +67,16 @@ class Token
      * @param string $column
      * @param int $size
      * @param bool $withSpecialCharacters
+     * @param null $connection
      * @return string
      * @throws \Exception
      */
-    public function uniqueString($table, $column, $size, $withSpecialCharacters = false)
+    public function uniqueString($table, $column, $size, $withSpecialCharacters = false, $connection = null)
     {
         do {
             $token = $this->randomString($size, $withSpecialCharacters);
 
-            $exists = DB::table($table)->where($column, $token)->exists();
+            $exists = DB::connection($connection)->table($table)->where($column, $token)->exists();
         } while ($exists);
 
         return $token;
